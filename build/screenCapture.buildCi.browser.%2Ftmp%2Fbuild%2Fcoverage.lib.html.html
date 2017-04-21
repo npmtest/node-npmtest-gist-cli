@@ -1,0 +1,1753 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-gist-cli/node_modules/gist-cli/gist.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-gist-cli">npmtest-gist-cli (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-gist-cli/node_modules/gist-cli/gist.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">27.94% <small>(88 / 315)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">13.37% <small>(23 / 172)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">24% <small>(12 / 50)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">27.71% <small>(87 / 314)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> » <a href="index.html">node-npmtest-gist-cli/node_modules/gist-cli/</a> » gist.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//#!/usr/bin/env node
+var args = process.argv.slice(2)
+var path = require('path')
+var fs = require('fs')
+var private = false
+var description = ''
+var opener = require('opener')
+var copy = process.platform === 'darwin'
+var open = true
+var stdin = true
+var anon = false
+var type = 'txt'
+var files = []
+var doMain = true
+var ini = require('ini')
+var child_process = require('child_process')
+var execFile = child_process.execFile
+var spawn = child_process.spawn
+var home = require('osenv').home()
+var authFile = home + '/.gist-login'
+var https = require('https')
+var read = require('read')
+var userAgent = 'node/gist-cli@' + require('./package.json').version
+var argUN = null
+var argPW = null
+var edit = false
+var prune = false
+var url = require('url')
+&nbsp;
+var debug
+<span class="missing-if-branch" title="if path not taken">I</span>if (process.env.NODE_DEBUG &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">/\bgist\b/.exec(process.env.NODE_DEBUG))</span> {
+<span class="cstat-no" title="statement not covered">  var util = require('util')</span>
+<span class="cstat-no" title="statement not covered">  debug = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    var m = util.format.apply(util, arguments)</span>
+<span class="cstat-no" title="statement not covered">    console.error('GIST', m)</span>
+  }
+} else {
+  debug = function() {}
+}
+&nbsp;
+for (var a = 0; a &lt; args.length; a++) {
+<span class="cstat-no" title="statement not covered">  switch (args[a]) {</span>
+    case '-e': case '--edit':
+<span class="cstat-no" title="statement not covered">      edit = args[++a]</span>
+<span class="cstat-no" title="statement not covered">      var p = url.parse(edit || '')</span>
+<span class="cstat-no" title="statement not covered">      if (p &amp;&amp; p.host)</span>
+<span class="cstat-no" title="statement not covered">        edit = p.pathname</span>
+<span class="cstat-no" title="statement not covered">      edit = path.basename(edit)</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '--prune':
+<span class="cstat-no" title="statement not covered">      prune = true</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-u': case '--user': case '--username':
+<span class="cstat-no" title="statement not covered">      argUN = args[++a]</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-P': case '--pass': case '--password':
+<span class="cstat-no" title="statement not covered">      argPW = args[++a]</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-c': case '--copy':
+<span class="cstat-no" title="statement not covered">      copy = process.platform === 'darwin'</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '--no-copy':
+<span class="cstat-no" title="statement not covered">      copy = false</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-p': case '--private':
+<span class="cstat-no" title="statement not covered">      private = true</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '--no-private':
+<span class="cstat-no" title="statement not covered">      private = false</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-t': case '--type':
+<span class="cstat-no" title="statement not covered">      type = args[++a]</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-d': case '--description':
+<span class="cstat-no" title="statement not covered">      description = args[++a]</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-o': case '--open':
+<span class="cstat-no" title="statement not covered">      open = true</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '--no-open':
+<span class="cstat-no" title="statement not covered">      open = false</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-v': case '--version':
+<span class="cstat-no" title="statement not covered">      version()</span>
+<span class="cstat-no" title="statement not covered">      doMain = false</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-h': case '--help':
+<span class="cstat-no" title="statement not covered">      help()</span>
+<span class="cstat-no" title="statement not covered">      doMain = false</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    case '-a': case '--anon': case '--anonymous':
+<span class="cstat-no" title="statement not covered">      anon = true</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+    default:
+<span class="cstat-no" title="statement not covered">      files.push(args[a])</span>
+<span class="cstat-no" title="statement not covered">      break</span>
+  }
+}
+&nbsp;
+<span class="missing-if-branch" title="if path not taken">I</span>if (files.length !== 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">files.indexOf('-') === -1)</span>
+<span class="cstat-no" title="statement not covered">  stdin = false</span>
+&nbsp;
+<span class="missing-if-branch" title="else path not taken">E</span>if (doMain) main()
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered">function help() {</span>
+<span class="cstat-no" title="statement not covered">  console.log([</span>
+    'Usage: gist [options] [filename, ...]',
+    'Filename \'-\' forces gist to read from stdin.',
+    'gist will read from stdin by default if no files specified',
+    '    -p, --[no-]private               Make the gist private',
+    '    -t, --type [EXTENSION]           Set syntax highlighting of the Gist by file extension',
+    '                                     (Only applies to stdin data, filenames use extension)',
+    '    -d, --description DESCRIPTION    Set description of the new gist',
+    '    -o, --[no-]open                  Open gist in browser',
+    '    -c, --[no-]copy                  Save url to clipboard (osx only)',
+    '    -v, --version                    Print version',
+    '    -h, --help                       Display this screen'
+  ].join('\n'))
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function version() {</span>
+<span class="cstat-no" title="statement not covered">  console.log(require('./package.json').version)</span>
+}
+&nbsp;
+function main() {
+  debug('main start')
+  <span class="missing-if-branch" title="if path not taken">I</span>if (anon &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">private)</span> {
+<span class="cstat-no" title="statement not covered">    console.error('Cannot create private anonymous gists')</span>
+<span class="cstat-no" title="statement not covered">    process.exit(1)</span>
+  }
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken">I</span>if (prune &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">!edit)</span> {
+<span class="cstat-no" title="statement not covered">    console.error('--prune requires a --edit argument')</span>
+<span class="cstat-no" title="statement not covered">    process.exit(1)</span>
+  }
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken">I</span>if (anon)
+<span class="cstat-no" title="statement not covered">    getData(files, onData.bind(null, null))</span>
+  else
+    getAuth(<span class="fstat-no" title="function not covered">function(er, auth) {</span>
+<span class="cstat-no" title="statement not covered">      debug('auth', er, auth)</span>
+<span class="cstat-no" title="statement not covered">      if (er)</span>
+<span class="cstat-no" title="statement not covered">        throw er</span>
+<span class="cstat-no" title="statement not covered">      getData(files, onData.bind(null, auth))</span>
+    })
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function onData(auth, er, data) {</span>
+<span class="cstat-no" title="statement not covered">  if (er)</span>
+<span class="cstat-no" title="statement not covered">    throw er</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var body = {</span>
+    description: description,
+    public: !private &amp;&amp; !anon,
+    files: data.files
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (data.edit) {</span>
+<span class="cstat-no" title="statement not covered">    body.description = description || data.edit.description</span>
+<span class="cstat-no" title="statement not covered">    body.public = data.edit.public</span>
+<span class="cstat-no" title="statement not covered">    if (prune) {</span>
+<span class="cstat-no" title="statement not covered">      for (var f in data.edit.files) {</span>
+<span class="cstat-no" title="statement not covered">        if (!body.files[f])</span>
+<span class="cstat-no" title="statement not covered">          body.files[f] = null</span>
+      }
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  body = new Buffer(JSON.stringify(body))</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  debug('body', body.toString())</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var opt = {</span>
+    method: edit ? 'PATCH' : 'POST',
+    host: 'api.github.com',
+    port: 443,
+    path: '/gists' + (edit ? '/' + edit : ''),
+    headers: {
+      host: 'api.github.com',
+      'user-agent': userAgent,
+      'content-length': body.length,
+      'content-type': 'application/json'
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (!anon)</span>
+<span class="cstat-no" title="statement not covered">    opt.headers.authorization = 'token ' + auth.token</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  debug('making request', opt)</span>
+<span class="cstat-no" title="statement not covered">  var req = https.request(opt)</span>
+<span class="cstat-no" title="statement not covered">  req.on('response', <span class="fstat-no" title="function not covered">function (res) {</span></span>
+<span class="cstat-no" title="statement not covered">    var result = ''</span>
+<span class="cstat-no" title="statement not covered">    res.setEncoding('utf8')</span>
+<span class="cstat-no" title="statement not covered">    res.on('data', <span class="fstat-no" title="function not covered">function(c) {</span></span>
+<span class="cstat-no" title="statement not covered">      result += c</span>
+    })
+<span class="cstat-no" title="statement not covered">    res.on('end', <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">      result = JSON.parse(result)</span>
+<span class="cstat-no" title="statement not covered">      debug('result', result)</span>
+<span class="cstat-no" title="statement not covered">      var id = result.id</span>
+<span class="cstat-no" title="statement not covered">      var user = auth &amp;&amp; auth.user || 'anonymous'</span>
+<span class="cstat-no" title="statement not covered">      var url = 'https://gist.github.com/' + user + '/' + id</span>
+<span class="cstat-no" title="statement not covered">      if (open)</span>
+<span class="cstat-no" title="statement not covered">        opener(url)</span>
+<span class="cstat-no" title="statement not covered">      if (copy)</span>
+<span class="cstat-no" title="statement not covered">        copyUrl(url)</span>
+<span class="cstat-no" title="statement not covered">      process.on('exit', <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">        console.log(url)</span>
+      })
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered">    if (auth) {</span>
+<span class="cstat-no" title="statement not covered">      saveAuth(auth, <span class="fstat-no" title="function not covered">function (er, result) {</span></span>
+<span class="cstat-no" title="statement not covered">        if (er)</span>
+<span class="cstat-no" title="statement not covered">          throw er</span>
+      })
+    }
+  })
+<span class="cstat-no" title="statement not covered">  req.end(body)</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function copyUrl(url) {</span>
+<span class="cstat-no" title="statement not covered">  spawn('pbcopy', []).stdin.end(url)</span>
+}
+&nbsp;
+function getAuth(cb) {
+  var user = argUN
+  var pass = argPW
+  var argAuth = { user: argUN, pass: argPW }
+  <span class="missing-if-branch" title="if path not taken">I</span>if (user &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">pass)</span> {
+<span class="cstat-no" title="statement not covered">    debug('auth on argv')</span>
+<span class="cstat-no" title="statement not covered">    return tokenize({ user: argUN, pass: argPW }, cb)</span>
+  }
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken">I</span>if (user &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">!pass)</span> {
+<span class="cstat-no" title="statement not covered">    debug('user on argv, password required')</span>
+<span class="cstat-no" title="statement not covered">    return getPassFromCli(argAuth, <span class="fstat-no" title="function not covered">function (er, auth) {</span></span>
+<span class="cstat-no" title="statement not covered">      debug('getPassFromCli', er, auth)</span>
+<span class="cstat-no" title="statement not covered">      done(er, auth)</span>
+    })
+  }
+&nbsp;
+  getAuthFromFile(authFile, function(er, auth) {
+    debug('getAuthFromFile', er, auth)
+    <span class="missing-if-branch" title="else path not taken">E</span>if (er)
+      getAuthFromGit(function (er, auth) {
+        debug('getAuthFromGit', er, auth)
+        <span class="missing-if-branch" title="else path not taken">E</span>if (er)
+          getAuthFromCli(<span class="fstat-no" title="function not covered">function (er, auth) {</span>
+<span class="cstat-no" title="statement not covered">            debug('getAuthFromCli', er, auth)</span>
+<span class="cstat-no" title="statement not covered">            done(er, auth)</span>
+          })
+        else
+<span class="cstat-no" title="statement not covered">          done(er, auth)</span>
+      })
+    else
+<span class="cstat-no" title="statement not covered">      done(er, auth)</span>
+  })
+&nbsp;
+<span class="fstat-no" title="function not covered">  function done(er, auth) {</span>
+<span class="cstat-no" title="statement not covered">    if (er)</span>
+<span class="cstat-no" title="statement not covered">      return cb(er)</span>
+<span class="cstat-no" title="statement not covered">    auth.user = auth.user.trim()</span>
+<span class="cstat-no" title="statement not covered">    auth.token = auth.token.trim()</span>
+<span class="cstat-no" title="statement not covered">    if (argAuth.user &amp;&amp; auth.user !== argAuth.user) {</span>
+<span class="cstat-no" title="statement not covered">      auth.user = argAuth.user</span>
+<span class="cstat-no" title="statement not covered">      delete auth.token</span>
+<span class="cstat-no" title="statement not covered">      auth.pass = argAuth.pass</span>
+    }
+<span class="cstat-no" title="statement not covered">    cb(er, auth)</span>
+  }
+}
+&nbsp;
+function getAuthFromCli(cb) {
+  // can't read a file from stdin if we're reading login!
+  <span class="missing-if-branch" title="else path not taken">E</span>if (files.indexOf('-') !== -1 || stdin) {
+    debug('error: gisting stdin and also reading auth on stdin')
+    process.exit(1)
+  }
+&nbsp;
+  var data = {}
+  read({ prompt: 'github.com username: ' }, <span class="fstat-no" title="function not covered">function(er, user) {</span>
+<span class="cstat-no" title="statement not covered">    if (er)</span>
+<span class="cstat-no" title="statement not covered">      return cb(er)</span>
+<span class="cstat-no" title="statement not covered">    data.user = user.trim()</span>
+<span class="cstat-no" title="statement not covered">    getPassFromCli(data, cb)</span>
+  })
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function getPassFromCli(data, cb) {</span>
+<span class="cstat-no" title="statement not covered">  if (files.indexOf('-') !== -1 || stdin) {</span>
+<span class="cstat-no" title="statement not covered">    debug('error: gisting stdin and also reading auth on stdin')</span>
+<span class="cstat-no" title="statement not covered">    process.exit(1)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  read({ prompt: 'github.com password: ', silent: true }, <span class="fstat-no" title="function not covered">function(er, password) {</span></span>
+<span class="cstat-no" title="statement not covered">    if (er)</span>
+<span class="cstat-no" title="statement not covered">      return cb(er)</span>
+<span class="cstat-no" title="statement not covered">    password = password.trim()</span>
+<span class="cstat-no" title="statement not covered">    data.pass = password</span>
+<span class="cstat-no" title="statement not covered">    tokenize(data, cb)</span>
+  })
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function tokenize (data, cb) {</span>
+  // curl -u isaacs \
+  //   -d '{"scopes":["gist"],"note":"gist cli access"}' \
+  //   https://api.github.com/authorizations
+<span class="cstat-no" title="statement not covered">  var body = new Buffer(JSON.stringify({</span>
+    scopes: [ 'gist' ],
+    note: 'gist cli access'
+  }))
+<span class="cstat-no" title="statement not covered">  var r = {</span>
+    method: 'POST',
+    host: 'api.github.com',
+    headers: {
+      'content-type': 'application/json',
+      'content-length': body.length,
+      'user-agent': userAgent,
+      authorization: 'Basic ' +
+        new Buffer(data.user + ':' + data.pass).toString('base64')
+    },
+    path: '/authorizations'
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (data.otp)</span>
+<span class="cstat-no" title="statement not covered">    r.headers['X-GitHub-OTP'] = data.otp</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var req = https.request(r)</span>
+<span class="cstat-no" title="statement not covered">  var result = ''</span>
+<span class="cstat-no" title="statement not covered">  req.on('response', <span class="fstat-no" title="function not covered">function(res) {</span></span>
+<span class="cstat-no" title="statement not covered">    res.on('error', cb)</span>
+<span class="cstat-no" title="statement not covered">    res.setEncoding('utf8')</span>
+<span class="cstat-no" title="statement not covered">    res.on('data', <span class="fstat-no" title="function not covered">function(c) {</span></span>
+<span class="cstat-no" title="statement not covered">      result += c</span>
+    })
+<span class="cstat-no" title="statement not covered">    res.on('end', <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">      result = JSON.parse(result)</span>
+<span class="cstat-no" title="statement not covered">      if (res.statusCode &gt;= 400) {</span>
+<span class="cstat-no" title="statement not covered">        debug('failed', res.statusCode, result)</span>
+<span class="cstat-no" title="statement not covered">        var otp = res.headers['x-github-otp']</span>
+<span class="cstat-no" title="statement not covered">        if (res.statusCode === 401 &amp;&amp;</span>
+            !data.otp &amp;&amp; otp &amp;&amp; otp.match(/^required; /)) {
+<span class="cstat-no" title="statement not covered">          var type = otp.replace(/^required; /, '')</span>
+<span class="cstat-no" title="statement not covered">          return getOTP(data, type, cb)</span>
+        }
+<span class="cstat-no" title="statement not covered">        var message = result.message || JSON.stringify(result)</span>
+<span class="cstat-no" title="statement not covered">        return cb(new Error(message))</span>
+      }
+<span class="cstat-no" title="statement not covered">      debug('ok', res.statusCode, result)</span>
+<span class="cstat-no" title="statement not covered">      data.token = result.token</span>
+      // just to make sure we don't waste this...
+<span class="cstat-no" title="statement not covered">      if (files.length === 0)</span>
+<span class="cstat-no" title="statement not covered">        saveAuth(data, <span class="fstat-no" title="function not covered">function(er) {</span></span>
+<span class="cstat-no" title="statement not covered">          cb(er, data)</span>
+        })
+      else
+<span class="cstat-no" title="statement not covered">        cb(null, data)</span>
+    })
+  })
+<span class="cstat-no" title="statement not covered">  req.on('error', cb)</span>
+<span class="cstat-no" title="statement not covered">  req.write(body)</span>
+<span class="cstat-no" title="statement not covered">  req.end()</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function getOTP(data, type, cb) {</span>
+<span class="cstat-no" title="statement not covered">  if (files.indexOf('-') !== -1 || stdin) {</span>
+<span class="cstat-no" title="statement not covered">    debug('error: gisting stdin and also reading auth on stdin')</span>
+<span class="cstat-no" title="statement not covered">    process.exit(1)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  read({</span>
+    prompt: 'two factor auth (' + type + '): ',
+    silent: true
+  }, <span class="fstat-no" title="function not covered">function(er, otp) {</span>
+<span class="cstat-no" title="statement not covered">    if (er)</span>
+<span class="cstat-no" title="statement not covered">      return cb(er)</span>
+<span class="cstat-no" title="statement not covered">    data.otp = otp.trim()</span>
+<span class="cstat-no" title="statement not covered">    tokenize(data, cb)</span>
+  })
+}
+&nbsp;
+function getAuthFromFile(authFile, cb) {
+  // try to load from our file
+  fs.readFile(authFile, 'utf8', function(er, data) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (er)
+      return cb(er)
+<span class="cstat-no" title="statement not covered">    data = ini.parse(data)</span>
+<span class="cstat-no" title="statement not covered">    if (!data.gist || !data.gist.user || !data.gist.token)</span>
+<span class="cstat-no" title="statement not covered">      return cb(new Error('no login data in '+authFile))</span>
+<span class="cstat-no" title="statement not covered">    return cb(null, data.gist)</span>
+  })
+}
+&nbsp;
+function getAuthFromGit(cb) {
+  var data = {}
+  getConfFromGit('gist.user', function(er, user) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (er)
+      return cb(er)
+<span class="cstat-no" title="statement not covered">    data.user = user</span>
+<span class="cstat-no" title="statement not covered">    getConfFromGit('gist.token', <span class="fstat-no" title="function not covered">function(er, token) {</span></span>
+<span class="cstat-no" title="statement not covered">      if (er)</span>
+<span class="cstat-no" title="statement not covered">        return cb(er)</span>
+<span class="cstat-no" title="statement not covered">      data.token = token</span>
+<span class="cstat-no" title="statement not covered">      cb(null, data)</span>
+    })
+  })
+}
+&nbsp;
+function getConfFromGit(key, cb) {
+  debug('getConfFromGit', 'git', ['config', '--get', key].join(' '))
+  var env = { env: process.env }
+  execFile('git', ['config', '--get', key], env, function (er, stdout, stderr) {
+    debug('back from git config', er, stdout, stderr)
+    <span class="missing-if-branch" title="else path not taken">E</span>if (er || <span class="branch-1 cbranch-no" title="branch not covered">!stdout)</span>
+      debug(stderr)
+    return cb(er, stdout)
+  })
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function saveAuth(data, cb) {</span>
+<span class="cstat-no" title="statement not covered">  var d = { gist: {</span>
+    user: data.user,
+    token: data.token
+  }}
+<span class="cstat-no" title="statement not covered">  fs.writeFile(authFile, ini.stringify(d), cb)</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function getData(files, cb) {</span>
+<span class="cstat-no" title="statement not covered">  var data = { files: {} }</span>
+<span class="cstat-no" title="statement not covered">  if (stdin &amp;&amp; files.indexOf('-') === -1)</span>
+<span class="cstat-no" title="statement not covered">    files.push('-')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var c = files.length</span>
+<span class="cstat-no" title="statement not covered">  if (edit) {</span>
+<span class="cstat-no" title="statement not covered">    c++</span>
+<span class="cstat-no" title="statement not covered">    getEditData(<span class="fstat-no" title="function not covered">function(er, editData) {</span></span>
+<span class="cstat-no" title="statement not covered">      data.edit = editData</span>
+<span class="cstat-no" title="statement not covered">      next(er)</span>
+    })
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var errState = null</span>
+<span class="cstat-no" title="statement not covered">  var didStdin = false</span>
+<span class="cstat-no" title="statement not covered">  files.forEach(<span class="fstat-no" title="function not covered">function (f) {</span></span>
+<span class="cstat-no" title="statement not covered">    if (f === '-') {</span>
+<span class="cstat-no" title="statement not covered">      if (!didStdin) {</span>
+<span class="cstat-no" title="statement not covered">        didStdin = true</span>
+<span class="cstat-no" title="statement not covered">        var stdinData = ''</span>
+<span class="cstat-no" title="statement not covered">        process.stdin.setEncoding('utf8')</span>
+<span class="cstat-no" title="statement not covered">        process.stdin.on('data', <span class="fstat-no" title="function not covered">function(chunk) {</span></span>
+<span class="cstat-no" title="statement not covered">          stdinData += chunk</span>
+        })
+<span class="cstat-no" title="statement not covered">        process.stdin.on('error', <span class="fstat-no" title="function not covered">function(er) {</span></span>
+<span class="cstat-no" title="statement not covered">          next(er)</span>
+        })
+<span class="cstat-no" title="statement not covered">        process.stdin.on('end', <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">          data.files['gistfile.' + type] = { content: stdinData }</span>
+<span class="cstat-no" title="statement not covered">          next()</span>
+        })
+      }
+    } else {
+<span class="cstat-no" title="statement not covered">      fs.readFile(f, 'utf8', <span class="fstat-no" title="function not covered">function(er, fileData) {</span></span>
+<span class="cstat-no" title="statement not covered">        if (er)</span>
+<span class="cstat-no" title="statement not covered">          next(er)</span>
+        else {
+<span class="cstat-no" title="statement not covered">          data.files[f.replace(/\\|\//g, '-')] = { content: fileData }</span>
+<span class="cstat-no" title="statement not covered">          next()</span>
+        }
+      })
+    }
+  })
+&nbsp;
+<span class="fstat-no" title="function not covered">  function next(er) {</span>
+<span class="cstat-no" title="statement not covered">    if (errState)</span>
+<span class="cstat-no" title="statement not covered">      return</span>
+    else <span class="cstat-no" title="statement not covered">if (er)</span>
+<span class="cstat-no" title="statement not covered">      return cb(errState = er)</span>
+    else <span class="cstat-no" title="statement not covered">if (--c === 0) {</span>
+<span class="cstat-no" title="statement not covered">      cb(null, data)</span>
+    }
+  }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function getEditData(cb) {</span>
+<span class="cstat-no" title="statement not covered">  debug('getEditData %s', 'https://api.github.com/gists/' + edit)</span>
+<span class="cstat-no" title="statement not covered">  var r = url.parse('https://api.github.com/gists/' + edit)</span>
+<span class="cstat-no" title="statement not covered">  r.headers = {</span>
+    'user-agent': userAgent,
+  }
+<span class="cstat-no" title="statement not covered">  https.get(r, <span class="fstat-no" title="function not covered">function(res) {</span></span>
+<span class="cstat-no" title="statement not covered">    debug('getEditData', res.statusCode, res.headers)</span>
+<span class="cstat-no" title="statement not covered">    var j = ''</span>
+<span class="cstat-no" title="statement not covered">    res.setEncoding('utf8')</span>
+<span class="cstat-no" title="statement not covered">    res.on('data', <span class="fstat-no" title="function not covered">function(c) {</span></span>
+<span class="cstat-no" title="statement not covered">      j += c</span>
+    })
+<span class="cstat-no" title="statement not covered">    res.on('end', <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">      debug(j)</span>
+<span class="cstat-no" title="statement not covered">      j = JSON.parse(j)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">      if (res.statusCode !== 200)</span>
+<span class="cstat-no" title="statement not covered">        cb(new Error('Invalid gist ID: ' + edit))</span>
+      else
+<span class="cstat-no" title="statement not covered">        cb(null, j)</span>
+    })
+  }).on('error', cb)
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Fri Apr 21 2017 09:37:56 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
